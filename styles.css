@@ -10,18 +10,37 @@ body {
     grid-template-rows: 1fr 5fr 0.4fr;
 }
 
-header {
-    font-family: 'Delicious Handrawn', cursive;
+header,
+footer,
+.main-container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+header {
+    font-family: 'Delicious Handrawn', cursive;
     font-size: 64px;
+}
+
+.game-board {
+    display: grid;
+    align-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: fit-content;
+    margin-bottom: 10rem;
+}
+
+.tile {
+    outline: none;
+    width: 7.5rem;
+    height: 7.5rem;
+    border-bottom: none;
+    border-left: none;
 }
 
 footer {
     font-family: 'Delicious Handrawn', cursive;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 20px;
 }
