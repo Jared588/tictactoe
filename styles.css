@@ -23,6 +23,16 @@ header {
     font-size: 64px;
 }
 
+.main-container {
+    justify-content: space-evenly;
+}
+
+.player-stats {
+    font-family: 'Delicious Handrawn', cursive;
+    font-size: 32px;
+    margin-top: 3rem;
+}
+
 .game-board {
     display: grid;
     align-content: center;
