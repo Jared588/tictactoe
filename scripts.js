@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (gameArray[i] === "") {
                 gameArray[i] = sym;
                 switchPlayer();
-            } 
+            } else return;
         }
         return {updateLogic}
     })();
