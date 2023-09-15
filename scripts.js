@@ -23,10 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
             var move = btn.id // Log the move
             if (currentPlayer === player1) {
                 GameFlow.updateLogic(player1.getNum(), move); 
-                currentPlayer = player2;
             } else {
                 GameFlow.updateLogic(player2.getNum(), move);
-                currentPlayer = player1;
             }
 
             GameDisplay.updateDisplay();
@@ -35,17 +33,21 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     });
 
+    // Switch Player function
+    const switchPlayer = () => {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+
     // Game board Update logic
     const GameFlow = (() => {
         const updateLogic = (player, move) => {
-            if (player === 1) {
-                var sym = "x"
-            } else {
-                var sym = "o"
-            }
+            var sym = player === 1 ? "x" : "o";
  
             let i = move;
-            gameArray[i] = sym;
+            if (gameArray[i] === "") {
+                gameArray[i] = sym;
+                switchPlayer();
+            } 
         }
         return {updateLogic}
     })();
