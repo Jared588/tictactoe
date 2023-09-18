@@ -41,13 +41,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Reset Game board
+    const clearBoard = () => {          
+        gameArray.fill("");
+        currentPlayer = player1;
+        GameDisplay.updateDisplay(); // Update the display to clear the board visually
+    }
+
     const resetGame = () => {
-        const confirmReset = confirm("Would you like to play again?");
-        if (confirmReset) {
-            gameArray.fill("");
-            currentPlayer = player1;
-            GameDisplay.updateDisplay(); // Update the display to clear the board visually
-        }
+        setTimeout(() => {
+            const confirmReset = confirm("Would you like to play again?");
+            if(confirmReset) {
+                clearBoard();
+                player1Score = 0;
+                player2Score = 0;
+                let playerStats = document.querySelectorAll('.player-stats');
+                playerStats.forEach(playerStat => {
+                    while (playerStat.children.length > 1) {
+                        playerStat.removeChild(playerStat.children[1]);
+                    }
+                });
+            }
+        }, 100); 
     }
 
     // Game board Update logic
@@ -77,20 +91,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Player 1 wins!");
                         player1Score += 1;
                         GameDisplay.updateScores(player1, player1Score);
-                        resetGame();
+                        clearBoard();
                     }, 100); // Delay the alert so the update displays beforehand
                 } else {
                     setTimeout(() => {
                         alert("Player 2 wins!");
                         player2Score += 1;
                         GameDisplay.updateScores(player2, player2Score);
-                        resetGame();
+                        clearBoard();
                     }, 100); 
                 }
             } else if (gameArray.every(cell => cell !== "")) {
                 setTimeout(() => {
                     alert("Draw!");
-                    resetGame();
+                    clearBoard();
                 }, 100); 
             }
 
@@ -116,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 playerStats = document.querySelector('#playerTwoStats');
             }
 
-            if (score >= 1 && score <= 5) {
+            if (score >= 1 && score <= 4) {
                 while (playerStats.children.length > 1) {
                     playerStats.removeChild(playerStats.children[1]);
                 }
@@ -127,11 +141,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 playerStats.appendChild(imgElement); // Append the image element to the playerStats element
             }
 
-            if (score >= 6 && score <= 10) {
+            if (score === 5) {
+                while (playerStats.children.length > 1) {
+                    playerStats.removeChild(playerStats.children[1]);
+                }
                 const imgElement = document.createElement('img');
-                imgElement.src = `icons/tally${score - 5}.png`;
-                imgElement.classList.add('tally');
-                playerStats.appendChild(imgElement);
+                imgElement.src = `icons/tally${score}.png`; // Set the source attribute to the image file
+                imgElement.classList.add('tally'); // Add a CSS class to style the image
+                playerStats.appendChild(imgElement); // Append the image element to the playerStats element
+                resetGame();
             }
         }
 
