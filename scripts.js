@@ -38,6 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
 
+    // Reset Game board
+    const resetGame = () => {
+        gameArray.fill("");
+        GameDisplay.updateDisplay();
+        currentPlayer = player1;
+    }
+
     // Game board Update logic
     const GameFlow = (() => {
         const updateLogic = (player, move) => {
@@ -47,8 +54,28 @@ document.addEventListener("DOMContentLoaded", function () {
             if (gameArray[i] === "") {
                 gameArray[i] = sym;
                 switchPlayer();
-            } else return;
+            }
+            
+            if (
+                (gameArray[0] === sym && gameArray[1] === sym && gameArray[2] === sym) ||
+                (gameArray[3] === sym && gameArray[4] === sym && gameArray[5] === sym) ||
+                (gameArray[6] === sym && gameArray[7] === sym && gameArray[8] === sym) ||
+                (gameArray[0] === sym && gameArray[3] === sym && gameArray[6] === sym) ||
+                (gameArray[1] === sym && gameArray[4] === sym && gameArray[7] === sym) ||
+                (gameArray[2] === sym && gameArray[5] === sym && gameArray[8] === sym) ||
+                (gameArray[0] === sym && gameArray[4] === sym && gameArray[8] === sym) ||
+                (gameArray[2] === sym && gameArray[4] === sym && gameArray[6] === sym)
+            ) {
+                if (sym === "x") {
+                    alert("Player 1 wins!");
+                    resetGame();
+                } else {
+                    alert("Player 2 wins!");
+                    resetGame();
+                }
+            }
         }
+
         return {updateLogic}
     })();
 
