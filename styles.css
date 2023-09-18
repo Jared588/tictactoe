@@ -28,8 +28,21 @@ header {
 }
 
 .player-stats {
+    display: flex;
+    flex-direction: column;
     font-size: 32px;
     margin-top: 3rem;
+}
+
+.player-stats > u {
+    height: 5rem;
+    text-align: center;
+    width: 160px;
+}
+
+.tally {
+    height: 10rem;
+    width: 10rem;
 }
 
 .game-board {

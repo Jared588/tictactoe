@@ -10,6 +10,10 @@ const Player = (name, playerNum) => {
 const player1 = Player("player1", 1);
 const player2 = Player("player2", 2);
 
+// Initialize scores
+var player1Score = 0;
+var player2Score = 0;
+
 // Initialize game state
 const gameArray = new Array(9).fill(""); // Represents the game board
 
@@ -28,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             GameDisplay.updateDisplay();
-            
-            console.log(move);
         })
     });
 
@@ -73,11 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (sym === "x") {
                     setTimeout(() => {
                         alert("Player 1 wins!");
+                        player1Score += 1;
+                        GameDisplay.updateScores(player1, player1Score);
                         resetGame();
                     }, 100); // Delay the alert so the update displays beforehand
                 } else {
                     setTimeout(() => {
                         alert("Player 2 wins!");
+                        player2Score += 1;
+                        GameDisplay.updateScores(player2, player2Score);
                         resetGame();
                     }, 100); 
                 }
@@ -87,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     resetGame();
                 }, 100); 
             }
+
+            
         }
         return {updateLogic}
     })();
@@ -98,6 +106,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 buttons[i].innerHTML = gameArray[i]
             }
         }
-        return {updateDisplay}
+
+        const updateScores  = (player, score) => {
+            let playerStats;
+
+            if (player === player1) {
+                playerStats = document.querySelector('#playerOneStats');
+            } else {
+                playerStats = document.querySelector('#playerTwoStats');
+            }
+
+            if (score >= 1 && score <= 5) {
+                while (playerStats.children.length > 1) {
+                    playerStats.removeChild(playerStats.children[1]);
+                }
+
+                const imgElement = document.createElement('img');
+                imgElement.src = `icons/tally${score}.png`; // Set the source attribute to the image file
+                imgElement.classList.add('tally'); // Add a CSS class to style the image
+                playerStats.appendChild(imgElement); // Append the image element to the playerStats element
+            }
+
+            if (score >= 6 && score <= 10) {
+                const imgElement = document.createElement('img');
+                imgElement.src = `icons/tally${score - 5}.png`;
+                imgElement.classList.add('tally');
+                playerStats.appendChild(imgElement);
+            }
+        }
+
+        return { updateDisplay, updateScores };
     })();
 });
