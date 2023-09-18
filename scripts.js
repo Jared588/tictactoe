@@ -40,9 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Reset Game board
     const resetGame = () => {
-        gameArray.fill("");
-        GameDisplay.updateDisplay();
-        currentPlayer = player1;
+        const confirmReset = confirm("Would you like to play again?");
+        if (confirmReset) {
+            gameArray.fill("");
+            currentPlayer = player1;
+            GameDisplay.updateDisplay(); // Update the display to clear the board visually
+        }
     }
 
     // Game board Update logic
@@ -56,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 switchPlayer();
             }
             
+            // Win conditions/logic
             if (
                 (gameArray[0] === sym && gameArray[1] === sym && gameArray[2] === sym) ||
                 (gameArray[3] === sym && gameArray[4] === sym && gameArray[5] === sym) ||
