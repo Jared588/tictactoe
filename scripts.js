@@ -67,15 +67,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 (gameArray[2] === sym && gameArray[4] === sym && gameArray[6] === sym)
             ) {
                 if (sym === "x") {
-                    alert("Player 1 wins!");
-                    resetGame();
+                    setTimeout(() => {
+                        alert("Player 1 wins!");
+                        resetGame();
+                    }, 100); // Delay the alert so the update displays beforehand
                 } else {
-                    alert("Player 2 wins!");
-                    resetGame();
+                    setTimeout(() => {
+                        alert("Player 2 wins!");
+                        resetGame();
+                    }, 100); 
                 }
+            } else if (gameArray.every(cell => cell !== "")) {
+                setTimeout(() => {
+                    alert("Draw!");
+                    resetGame();
+                }, 100); 
             }
         }
-
         return {updateLogic}
     })();
 
